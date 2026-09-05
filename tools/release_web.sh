@@ -18,6 +18,25 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+# Parse with a loop that REJECTS what it does not recognise. This was
+# `[[ "${1:-}" == "--build" ]]`, and the default branch of that test is
+# "deploy to production" — so every near-miss shipped. Measured against a
+# stubbed netlify: `--dry-run`, `--build-only`, `--biuld`, `-b` and
+# `--definitely-not-a-flag` ALL exited 0 having called
+# `netlify deploy --prod`. Only the exact string `--build` did not. There
+# is one web site and it is production, so a typo here is a live deploy.
+# release_github.sh:54 was given this same shape on 2026-09-05; this is
+# the script that actually runs daily, and it was left behind.
+BUILD_ONLY=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --build) BUILD_ONLY=1; shift ;;
+    *) echo "unknown argument: $1" >&2
+       echo "usage: tools/release_web.sh [--build]" >&2
+       exit 2 ;;
+  esac
+done
+
 FLUTTER="${FLUTTER:-$HOME/flutter/bin/flutter}"
 NETLIFY="${NETLIFY:-$HOME/Documents/CodingProject/SmartHome/node_modules/.bin/netlify}"
 SITE_ID="410313ea-f47e-4cda-872a-fa857581993d"
@@ -53,7 +72,40 @@ else
   exit 1
 fi
 
-if [[ "${1:-}" == "--build" ]]; then
+# The splash now says v1.2.6. Nothing yet has asked whether the DART side
+# does, and those are two independent substitutions: the sed above reads
+# pubspec, while `kAppVersion` exists only if --dart-define reached the
+# compiler. Reproduced on a stub build: index.html rendered `v1.2.6` over a
+# main.dart.js whose kAppVersion was `dev`, and this script exited 0 and
+# deployed it. That is exactly the split-brain release_github.sh's header
+# describes at length — and this is the script that ships it daily, so the
+# check belongs here, not only there.
+#
+# main.dart.js and NOT `grep -r build/web`: of the three files under
+# build/web carrying the version, version.json is emitted straight from
+# pubspec and index.html was just substituted from this script's own
+# pubspec read. Neither has any connection to --dart-define. main.dart.js
+# is the only one whose copy proves APP_VERSION reached the compiler.
+#
+# Anchored, not `grep -F`: a plain substring test passes a build stamped
+# 1.2.60 or 11.2.6 as 1.2.6. Same matcher as release_github.sh's
+# `carries_version`, so the two scripts cannot disagree about what
+# "carries the version" means.
+VERSION_RE="(^|[^0-9.])$(printf '%s' "$APP_VERSION" | sed 's/\./\\./g')([^0-9.]|$)"
+[[ -f build/web/main.dart.js ]] \
+  || { echo "!!  build/web/main.dart.js is missing; the build's version" >&2
+       echo "!!  cannot be proved — aborting" >&2; exit 1; }
+grep -qE "$VERSION_RE" build/web/main.dart.js \
+  || { echo "!!  build/web/main.dart.js does not carry $APP_VERSION — the" >&2
+       echo "!!  build lost its --dart-define and the header would read" >&2
+       echo "!!  'dev' under a splash saying v$APP_VERSION. Aborting." >&2
+       exit 1; }
+grep -qE "$VERSION_RE" build/web/index.html \
+  || { echo "!!  the boot splash was not stamped with $APP_VERSION" >&2
+       exit 1; }
+echo "==> verified: splash and main.dart.js both carry $APP_VERSION"
+
+if [[ "$BUILD_ONLY" = "1" ]]; then
   echo "✓ built only (--build)"
   exit 0
 fi

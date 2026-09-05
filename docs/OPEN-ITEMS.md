@@ -90,10 +90,10 @@ the filter chips come from the feed.
 Closing it means building four artifacts and `gh release create v1.2.6`.
 
 **Ready to close, deliberately not closed. [verified 2026-09-05]**
-`tools/release_github.sh` (still untracked) now does the whole job and
-its `--dry-run` exits 0. All four artifacts sit verified in
-`build/release-1.2.6/` — Android 59.5 MB, macOS 30.3 MB, Web 27.6 MB,
-iOS 20.6 MB — and each was independently confirmed to carry the string
+`tools/release_github.sh` (committed in `e18e711`) now does the whole job and
+its `--dry-run` exited 0 when it was measured — and no longer does in the current tree, because HEAD is two commits ahead of origin/main and both the old and the new guards refuse that. That is the guard working, not a regression. All four artifacts sit verified in
+`build/release-1.2.6/` — Android 59.5 MiB, macOS 30.3 MiB, Web 27.6 MiB,
+iOS 20.6 MiB — and each was independently confirmed to carry the string
 `1.2.6` (the APK checked per-ABI: arm64-v8a, armeabi-v7a and x86_64 all
 carry it, twice each).
 
