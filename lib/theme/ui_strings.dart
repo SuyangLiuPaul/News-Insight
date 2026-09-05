@@ -9,15 +9,14 @@ const Map<String, Map<String, String>> uiStrings = {
     'en': 'World news, read alongside Scripture',
     'zh': '透过圣经看世界新闻',
   },
+  // Only the 'All' chip is named here. Every other chip takes its label
+  // from the feed's own `categoryLabel` (see SectionChips in
+  // feed_page.dart), which is why a desk added upstream appears with no
+  // app release. Per-desk entries for world…documentary used to sit
+  // here for symmetry; they were referenced from nowhere, so editing
+  // them changed nothing on screen and they were removed rather than
+  // left to read like a translation table that works.
   'sectionAll': {'en': 'All', 'zh': '全部'},
-  'sectionWorld': {'en': 'World', 'zh': '世界'},
-  'sectionChina': {'en': 'China', 'zh': '中国'},
-  'sectionAustralia': {'en': 'Australia', 'zh': '澳大利亚'},
-  'sectionHongkong': {'en': 'Hong Kong', 'zh': '香港'},
-  'sectionScience': {'en': 'Science', 'zh': '科学'},
-  'sectionTechnology': {'en': 'Tech', 'zh': '科技'},
-  'sectionCreation': {'en': 'Creation', 'zh': '受造'},
-  'sectionDocumentary': {'en': 'Documentary', 'zh': '纪录片'},
   'refresh': {'en': 'Refresh', 'zh': '刷新'},
   'lastUpdated': {'en': 'Updated {time}', 'zh': '更新于 {time}'},
   'readOriginal': {'en': 'Read original article', 'zh': '阅读原文'},
