@@ -22,7 +22,18 @@ FLUTTER="${FLUTTER:-$HOME/flutter/bin/flutter}"
 NETLIFY="${NETLIFY:-$HOME/Documents/CodingProject/SmartHome/node_modules/.bin/netlify}"
 SITE_ID="410313ea-f47e-4cda-872a-fa857581993d"
 
-APP_VERSION="$(grep '^version:' pubspec.yaml | head -1 | sed 's/version: *//' | cut -d'+' -f1)"
+# One awk, not `grep | head -1 | sed | cut`. That four-stage pipeline runs
+# under the `set -o pipefail` above, and `head -1` closes the pipe the
+# moment it has its line — so `grep` can die of SIGPIPE and pipefail then
+# takes 141 as the status of the whole substitution. It happens to survive
+# today only because one short `version:` line fits in the pipe buffer
+# before head exits; the identical shape with more to write measures 141.
+# The same trap cost real time in release_github.sh's `carries_version`.
+# awk with `exit` reads a FILE, so there is no pipe and nothing to race.
+# This is also the exact form release_github.sh:63 uses, so the two
+# scripts can no longer disagree about what the version is.
+APP_VERSION="$(awk '/^version:/ {print $2; exit}' pubspec.yaml)"
+APP_VERSION="${APP_VERSION%%+*}"
 APP_RELEASE_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 echo "==> building v$APP_VERSION ($APP_RELEASE_TIME)"
