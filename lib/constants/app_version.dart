@@ -1,4 +1,5 @@
-/// 2026-08-06: build identity for Yahweh's World.
+/// 2026-08-06: build identity for News Insight (named 「Yahweh's
+/// World」 until 2026-09-16 — see `ui_strings.dart`'s `appName`).
 ///
 /// Mirrors the pattern SeekSparks uses, deliberately — the two apps are
 /// maintained together and a second, different scheme would be one more

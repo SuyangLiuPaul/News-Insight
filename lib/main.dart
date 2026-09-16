@@ -46,7 +46,7 @@ class _YahwehsWorldAppState extends State<YahwehsWorldApp> {
       );
     }
     return MaterialApp(
-      title: uiStrings['appName']?[settings.locale] ?? "Yahweh's World",
+      title: uiStrings['appName']?[settings.locale] ?? 'News Insight',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

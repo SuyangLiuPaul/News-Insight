@@ -260,18 +260,18 @@ echo "==> web"
 # twice. What was NOT being done is checking the zip, which is what
 # actually gets uploaded, so that is what happens below instead.
 tools/release_web.sh --build
-drop_stale_archive "$OUT/YahwehsWorld-Web.zip"
-( cd build/web && zip -qr "$OUT/YahwehsWorld-Web.zip" . )
-verify_artifact "$OUT/YahwehsWorld-Web.zip" "main.dart.js" "the Web zip"
+drop_stale_archive "$OUT/NewsInsight-Web.zip"
+( cd build/web && zip -qr "$OUT/NewsInsight-Web.zip" . )
+verify_artifact "$OUT/NewsInsight-Web.zip" "main.dart.js" "the Web zip"
 
 echo "==> android"
 "$FLUTTER" build apk --release "${DEFINES[@]}"
 APK="build/app/outputs/flutter-apk/app-release.apk"
 # Copy FIRST, then check the copy. The APK that gets uploaded is the one
 # in $OUT, and it was previously only ever checked in its build-tree form.
-drop_stale_archive "$OUT/YahwehsWorld-Android.apk"
-cp "$APK" "$OUT/YahwehsWorld-Android.apk"
-APK_OUT="$OUT/YahwehsWorld-Android.apk"
+drop_stale_archive "$OUT/NewsInsight-Android.apk"
+cp "$APK" "$OUT/NewsInsight-Android.apk"
+APK_OUT="$OUT/NewsInsight-Android.apk"
 [[ "$(stat -f%z "$APK_OUT")" -ge "$MIN_BYTES" ]] || {
   echo "FATAL: the copied APK is truncated or empty." >&2; exit 1; }
 unzip -tqq "$APK_OUT" >/dev/null 2>&1 || {
@@ -323,8 +323,8 @@ rm -rf "$OUT/_apkcheck"
 echo "==> macos"
 "$FLUTTER" build macos --release "${DEFINES[@]}"
 MAC_APP="build/macos/Build/Products/Release/yahwehs_world.app"
-drop_stale_archive "$OUT/YahwehsWorld-macOS.zip"
-( cd "$(dirname "$MAC_APP")" && zip -qry "$OUT/YahwehsWorld-macOS.zip" "$(basename "$MAC_APP")" )
+drop_stale_archive "$OUT/NewsInsight-macOS.zip"
+( cd "$(dirname "$MAC_APP")" && zip -qry "$OUT/NewsInsight-macOS.zip" "$(basename "$MAC_APP")" )
 # `Versions/A/App`, NOT `App.framework/App`. On disk the latter resolves,
 # which is why the old pre-zip check worked; inside the archive `zip -y`
 # has stored it as what it is — a 20-byte symlink reading
@@ -332,17 +332,17 @@ drop_stale_archive "$OUT/YahwehsWorld-macOS.zip"
 # bytes of text and fail every time. Measured on this release's macOS zip.
 # The real binary is 9,579,520 bytes and carries the version four times,
 # because it is a universal binary with an x86_64 and an arm64 slice.
-verify_artifact "$OUT/YahwehsWorld-macOS.zip" \
+verify_artifact "$OUT/NewsInsight-macOS.zip" \
   "yahwehs_world.app/Contents/Frameworks/App.framework/Versions/A/App" \
   "the macOS zip"
 
 echo "==> ios"
 "$FLUTTER" build ios --release --no-codesign "${DEFINES[@]}"
 IOS_APP="build/ios/iphoneos/Runner.app"
-drop_stale_archive "$OUT/YahwehsWorld-iOS.zip"
-( cd "$(dirname "$IOS_APP")" && zip -qry "$OUT/YahwehsWorld-iOS.zip" "$(basename "$IOS_APP")" )
+drop_stale_archive "$OUT/NewsInsight-iOS.zip"
+( cd "$(dirname "$IOS_APP")" && zip -qry "$OUT/NewsInsight-iOS.zip" "$(basename "$IOS_APP")" )
 # iOS frameworks are flat — no Versions/ — so here App IS the binary.
-verify_artifact "$OUT/YahwehsWorld-iOS.zip" \
+verify_artifact "$OUT/NewsInsight-iOS.zip" \
   "Runner.app/Frameworks/App.framework/App" "the iOS zip"
 
 echo
@@ -359,8 +359,8 @@ echo "==> $TAG — four artifacts, each verified to carry $VERSION"
 # so these figures match every surface the operator will compare them
 # against. Only the label was wrong. (Decimal MB would read 62.4 / 31.7 /
 # 28.9 / 21.6 for this release and would agree with nothing but Finder.)
-for f in YahwehsWorld-Android.apk YahwehsWorld-iOS.zip \
-         YahwehsWorld-macOS.zip YahwehsWorld-Web.zip; do
+for f in NewsInsight-Android.apk NewsInsight-iOS.zip \
+         NewsInsight-macOS.zip NewsInsight-Web.zip; do
   awk -v n="$f" -v s="$(stat -f%z "$OUT/$f")" \
     'BEGIN {printf "    %-32s %6.1f MiB\n", n, s/1048576}'
 done
@@ -374,10 +374,10 @@ fi
 gh release create "$TAG" \
   --title "$TAG" \
   --notes "Yahweh's World $VERSION — built $RELEASE_TIME" \
-  "$OUT/YahwehsWorld-Android.apk" \
-  "$OUT/YahwehsWorld-iOS.zip" \
-  "$OUT/YahwehsWorld-macOS.zip" \
-  "$OUT/YahwehsWorld-Web.zip"
+  "$OUT/NewsInsight-Android.apk" \
+  "$OUT/NewsInsight-iOS.zip" \
+  "$OUT/NewsInsight-macOS.zip" \
+  "$OUT/NewsInsight-Web.zip"
 
 echo
 echo "Published $TAG. The portal's releases/latest buttons now serve it."

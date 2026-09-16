@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Yahweh's World's own visual identity — matched to the app icon's
+/// News Insight's own visual identity — matched to the app icon's
 /// blue (assets/icon/generate_icon.py's BLUE, also the web splash and
 /// theme_color), so the in-app chrome doesn't clash with the icon and
 /// loading screen the user actually sees first. Material 3's tonal

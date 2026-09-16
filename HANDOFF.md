@@ -133,7 +133,7 @@ The display name now follows the device language rather than being
 fixed, via `values-zh/strings.xml` on Android and localized
 `InfoPlist.strings` on iOS and macOS.
 
-## 2026-08-23 — renamed from News Insights to Yahweh's World
+## 2026-08-23 — renamed from News Insights to News Insight
 
 Folder, Dart package, GitHub repo and bundle id all became
 `yahwehs_world` / `com.yswords.yahwehsworld`. **The Netlify site and its

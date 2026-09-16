@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home-screen label. The apostrophe MUST stay escaped (aapt). -->
-    <string name="app_name">Yahweh\'s World</string>
+    <string name="app_name">News Insight</string>
 </resources>

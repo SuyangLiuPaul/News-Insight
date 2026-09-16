@@ -14,7 +14,7 @@ Last verified: **2026-09-04**.
 | surface | version | how it was checked | when |
 |---|---|---|---|
 | web (`news-insight.netlify.app`) | **1.2.6** | `curl` the deployed `index.html` splash | 2026-09-04 |
-| macOS (`/Applications/Yahweh's World.app`) | **1.2.6** | `defaults read … CFBundleShortVersionString` | 2026-09-04 |
+| macOS (`/Applications/News Insight.app`) | **1.2.6** | `defaults read … CFBundleShortVersionString` | 2026-09-04 |
 | iPhone 16 Pro Max | **unknown, ≤1.2.4** | last successful install was v1.2.4 on 2026-08-24; every nightly since has failed to install — see `docs/OPEN-ITEMS.md` #1 | 2026-09-04 |
 | iPad Pro 11-inch | **unknown, ≤1.2.4** | same | 2026-09-04 |
 | Mi Pad (Android) | **1.2.4** | `adb shell dumpsys` at install time on 2026-08-24; not re-checked since | 2026-08-24 |

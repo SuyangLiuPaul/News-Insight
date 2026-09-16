@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build + deploy Yahweh's World.
+# Build + deploy News Insight.
 #
 # Exists because the version and build time now appear in two places
 # that a plain `flutter build web` cannot fill in:

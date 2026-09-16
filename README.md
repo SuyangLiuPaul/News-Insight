@@ -1,4 +1,4 @@
-# Yahweh's World 雅伟之界
+# News Insight 新闻洞见
 
 **A bilingual (English / 简体中文) world-news reader that pairs every headline with an AI-picked Bible verse and reflection.**
 

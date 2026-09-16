@@ -1,10 +1,10 @@
 # AGENTS.md — start here
 
 This file is the entry point for anyone, human or AI, picking up
-Yahweh's World. Read it before touching anything. It is deliberately
+News Insight. Read it before touching anything. It is deliberately
 short; everything it points at is longer.
 
-Yahweh's World (雅伟之界) is a Flutter news reader. Every headline is
+News Insight (新闻洞见) is a Flutter news reader. Every headline is
 paired by AI with a Bible verse and a short reflection. It ships to web,
 Android, iOS and macOS from one codebase, in English and 简体中文.
 

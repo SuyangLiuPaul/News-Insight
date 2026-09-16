@@ -1,9 +1,13 @@
 /// This app's own UI strings — English + Simplified Chinese only,
 /// matching exactly what the yswords-data feed provides.
 const Map<String, Map<String, String>> uiStrings = {
+  // 2026-09-16 「这个app名字也要改一下」. It was 「Yahweh's World / 雅伟之
+  // 界」 — the same name as the BIBLICAL GLOBE at world.yahwehword.com,
+  // which is a different app by the same author. Two live apps cannot
+  // share a name; this one reads the news, so it is named for that.
   'appName': {
-    'en': "Yahweh's World",
-    'zh': '雅伟之界',
+    'en': 'News Insight',
+    'zh': '新闻洞见',
   },
   'tagline': {
     'en': 'World news, read alongside Scripture',

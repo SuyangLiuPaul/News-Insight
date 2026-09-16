@@ -9,7 +9,7 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>CFBundleDisplayName</key>
-	<string>Yahweh's World</string>
+	<string>News Insight</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

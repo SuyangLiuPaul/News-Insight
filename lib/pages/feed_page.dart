@@ -259,7 +259,7 @@ class _FeedPageState extends State<FeedPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(uiStrings['appName']?[locale] ?? "Yahweh's World"),
+        title: Text(uiStrings['appName']?[locale] ?? 'News Insight'),
         actions: [
           TextButton(
             onPressed: settings.toggleLocale,
