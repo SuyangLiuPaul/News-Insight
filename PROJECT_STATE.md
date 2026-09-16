@@ -34,19 +34,19 @@ installs only grows.
 | iPhone 16 Pro Max | **unknown, ≤1.2.4** | last successful install was v1.2.4 on 2026-08-24; every nightly since has failed to install — see `docs/OPEN-ITEMS.md` #1 | 2026-09-04 |
 | iPad Pro 11-inch | **unknown, ≤1.2.4** | same | 2026-09-04 |
 | Mi Pad (Android) | **1.2.4** | `adb shell dumpsys` at install time on 2026-08-24; not re-checked since | 2026-08-24 |
-| GitHub release `latest` | **1.2.4** | `gh release list` | 2026-09-04 |
+| GitHub release `latest` | **1.2.7** | `releases/latest` redirects to `tag/v1.2.7`; the published `NewsInsight-Android.apk` was downloaded and `apksigner` printed `CN=Paul Liu, O=News Insight, L=Melbourne, C=AU`, SHA-256 `6aed5880…798cdcfa` | 2026-09-17 |
 
-Two gaps worth naming rather than hiding:
+Gaps worth naming rather than hiding:
 
-- **The published release is two versions behind the code.** The portal's
-  "Download APK" button points at `releases/latest`, so anyone
-  downloading today gets 1.2.4 — without the blue theme and without the
-  Dart-side ordering for the two new desks. (They would still *see* the
-  new desks; the feed drives the chips.) Cutting a 1.2.6 release closes
-  this.
-- **No native surface has been confirmed on 1.2.6.** The macOS copy is
-  1.2.6 because the nightly job's macOS leg succeeds; both iOS devices
-  are stuck on whatever they last accepted.
+- **The release is current again.** That gap — `releases/latest` serving
+  1.2.4 while the code was on 1.2.6 — was closed on 2026-09-16, and
+  1.2.7 followed on 2026-09-17. The download buttons on
+  https://yahwehword.com/about point at `releases/latest`, so they need
+  no edit when a version ships.
+- **No native surface has been confirmed on 1.2.7.** The macOS copy
+  tracks the nightly job; both iOS devices are stuck on whatever they
+  last accepted; the Mi Pad still has a **debug-signed 1.2.4** and will
+  refuse 1.2.7 until it is uninstalled once.
 
 ---
 
