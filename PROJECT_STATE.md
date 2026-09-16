@@ -9,7 +9,23 @@ Last verified: **2026-09-04**.
 
 ## Version, by surface
 
-`pubspec.yaml` says **1.2.6+16**.
+`pubspec.yaml` says **1.2.7+17**.
+
+**1.2.7 exists for one reason: the Android release key.** Every APK up
+to and including 1.2.6 was signed with the Flutter debug keypair — the
+template's `signingConfig = signingConfigs.getByName("debug")` TODO,
+still in place long after Yahweh's Sword (2026-08-25) and Yahweh's Words
+(2026-09-09) had replaced theirs. That certificate reads
+`CN=Android Debug, O=Android, C=US`, is shared by every Flutter install
+on every machine, and anyone can forge an update to it. See the note at
+the top of `android/app/build.gradle.kts` for where the keystore lives
+and why the build falls back to debug signing rather than failing when
+it is absent.
+
+The cost, once: Android refuses an update signed with a different key,
+so an existing 1.2.6-or-earlier install must be **uninstalled before
+1.2.7 will install**. Done now rather than later because the number of
+installs only grows.
 
 | surface | version | how it was checked | when |
 |---|---|---|---|

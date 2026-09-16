@@ -373,7 +373,7 @@ fi
 
 gh release create "$TAG" \
   --title "$TAG" \
-  --notes "Yahweh's World $VERSION — built $RELEASE_TIME" \
+  --notes "News Insight $VERSION — built $RELEASE_TIME" \
   "$OUT/NewsInsight-Android.apk" \
   "$OUT/NewsInsight-iOS.zip" \
   "$OUT/NewsInsight-macOS.zip" \
