@@ -97,9 +97,14 @@
     @keyframes boot-breathe{
       0%,100%{transform:scale(1)}
       50%{transform:scale(1.045)}}
+    /* 2026-09-17: green, with the light half. These three were missed
+       when the palette moved — a sweep for the four constants in
+       `generate_icon.py` cannot find colours that only exist here, and
+       the dark splash is the first thing a reader on a dark phone sees,
+       so it was showing the old blue in front of the new green app. */
     @media (prefers-color-scheme: dark){
-      #boot{background:#0E2438;color:#CBE4F5}
-      #boot .z{color:#7FB4DC}
+      #boot{background:#0E241A;color:#CBE8D5}
+      #boot .z{color:#7FC4A0}
       #boot .mark{box-shadow:0 10px 30px rgba(0,0,0,.5)}}
     /* Someone who has asked for less motion gets the splash without
        the pulse — they still get the fade, which is not vestibular. */
