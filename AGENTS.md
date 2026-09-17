@@ -225,7 +225,7 @@ If you add a locale, all three need it.
 | web (prod) | `news-insight.netlify.app`, Netlify site `410313ea-f47e-4cda-872a-fa857581993d` |
 | data | `yswords-data.netlify.app`, Netlify site `e1252e5a-a37e-4ba4-94ab-046ee9e6da9b` |
 | portal | `suyangliupaul.github.io/yswords-apps` (branch `master`) |
-| releases | `gh release` on `SuyangLiuPaul/yahwehs_world` |
+| releases | `gh release` on `SuyangLiuPaul/News-Insight` |
 
 The `netlify` CLI is borrowed from
 `~/Documents/CodingProject/SmartHome/node_modules/.bin/netlify`.

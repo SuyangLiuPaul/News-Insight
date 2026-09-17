@@ -3,7 +3,7 @@
 **A bilingual (English / 简体中文) world-news reader that pairs every headline with an AI-picked Bible verse and reflection.**
 
 [![Live app](https://img.shields.io/badge/live%20app-news--insight.netlify.app-8a6d1a)](https://news-insight.netlify.app)
-[![Latest release](https://img.shields.io/github/v/release/SuyangLiuPaul/yahwehs_world)](https://github.com/SuyangLiuPaul/yahwehs_world/releases/latest)
+[![Latest release](https://img.shields.io/github/v/release/SuyangLiuPaul/News-Insight)](https://github.com/SuyangLiuPaul/News-Insight/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **Live app:** [news-insight.netlify.app](https://news-insight.netlify.app) · **Full documentation:** [SuyangLiuPaul.github.io/yahwehs_world](https://SuyangLiuPaul.github.io/yahwehs_world/)
@@ -31,12 +31,12 @@ It's a dedicated reader, not a scraper: all content is pulled from **[yswords-da
 - **Flutter** (web + Android + iOS + macOS from one codebase), Dart ^3.12
 - **provider** for the small amount of app-wide state (locale, theme)
 - **http** + **shared_preferences** for the data layer — no backend of its own
-- Deployed to **Netlify** (web) via the Netlify CLI; native builds distributed as [GitHub Releases](https://github.com/SuyangLiuPaul/yahwehs_world/releases)
+- Deployed to **Netlify** (web) via the Netlify CLI; native builds distributed as [GitHub Releases](https://github.com/SuyangLiuPaul/News-Insight/releases)
 
 ## Getting started
 
 ```bash
-git clone https://github.com/SuyangLiuPaul/yahwehs_world.git
+git clone https://github.com/SuyangLiuPaul/News-Insight.git
 cd yahwehs_world
 flutter pub get
 flutter run -d chrome   # or -d macos / an attached iOS or Android device
