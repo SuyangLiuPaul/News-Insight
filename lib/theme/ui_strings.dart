@@ -45,4 +45,20 @@ const Map<String, Map<String, String>> uiStrings = {
     'en': 'Failed to load more — tap to retry',
     'zh': '加载失败，点击重试',
   },
+
+  // 2026-09-17 「this app should have check upgrade as well and
+  // frequency too?」
+  'checkForUpdates': {'en': 'Check for updates', 'zh': '检查更新'},
+  'autoCheck': {'en': 'Check automatically', 'zh': '自动检查'},
+  'upToDate': {'en': 'You have the newest version', 'zh': '已经是最新版本'},
+  'checkFailed': {
+    'en': "Couldn't check right now",
+    'zh': '暂时无法检查更新',
+  },
+  'updateAvailable': {
+    'en': 'Version {v} is available',
+    'zh': '有新版本 {v}',
+  },
+  'download': {'en': 'Download', 'zh': '下载'},
+  'dismiss': {'en': 'Not now', 'zh': '以后再说'},
 };

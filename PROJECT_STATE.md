@@ -9,7 +9,16 @@ Last verified: **2026-09-04**.
 
 ## Version, by surface
 
-`pubspec.yaml` says **1.2.7+17**.
+`pubspec.yaml` says **1.2.8+18**.
+
+**1.2.8 carries two things the owner asked for on 2026-09-17.** The app
+is GREEN: the icon was drawn from 雅伟之言's palette so the two would
+look related and came out looking identical, so the hue moved and the
+theme seed with it (`_seed` is the icon's own fill colour, by design).
+And there is now an update check — `UpdateService` asks the GitHub
+Releases API, the ⋮ menu offers every-launch / daily / weekly / monthly /
+never with daily the default, and a bar at the top of the feed offers the
+download. It does NOT install anything; the URL goes to the browser.
 
 **1.2.7 exists for one reason: the Android release key.** Every APK up
 to and including 1.2.6 was signed with the Flutter debug keypair — the

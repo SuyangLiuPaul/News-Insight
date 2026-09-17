@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import '../constants/app_version.dart';
 import 'package:provider/provider.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:yahwehs_world/constants/update_check_frequency.dart';
 import 'package:yahwehs_world/models/app_settings.dart';
 import 'package:yahwehs_world/models/news_article.dart';
 import 'package:yahwehs_world/pages/article_detail_page.dart';
 import 'package:yahwehs_world/services/news_service.dart';
+import 'package:yahwehs_world/services/update_service.dart';
 import 'package:yahwehs_world/theme/ui_strings.dart';
 import 'package:yahwehs_world/utils/relative_time.dart';
 import 'package:yahwehs_world/widgets/article_card.dart';
@@ -45,11 +49,21 @@ class _FeedPageState extends State<FeedPage> {
   final ScrollController _scrollController = ScrollController();
   StreamSubscription<DailyNewsBundle>? _updatesSub;
 
+  /// The newest release, once asked for and once it turned out to be
+  /// newer than this build. Null means "nothing to say" — which covers
+  /// web, a build that does not know its own version, a network that did
+  /// not answer, and being up to date. See [UpdateService].
+  UpdateInfo? _update;
+  bool _updateDismissed = false;
+
   @override
   void initState() {
     super.initState();
     _load();
     _scrollController.addListener(_onScroll);
+    // After the first frame: `context.read` needs a mounted element, and
+    // there is no reason for a version check to be in front of the news.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _autoCheckUpdate());
     // NewsService.load() only ever hands back its FIRST snapshot — the
     // cache-then-network refresh underneath it keeps running silently
     // after that, so without this subscription a fresher bundle (say,
@@ -251,6 +265,54 @@ class _FeedPageState extends State<FeedPage> {
     return all.where((a) => a.section == _sectionFilter).toList();
   }
 
+  /// The automatic check, which only runs when the reader's own chosen
+  /// interval has elapsed — and records that it ran WHATEVER the answer,
+  /// so "daily" means daily rather than "daily until you are behind".
+  Future<void> _autoCheckUpdate() async {
+    if (!mounted) return;
+    final settings = context.read<AppSettings>();
+    if (!settings.updateCheckIsDue) return;
+    final info = await UpdateService.checkForUpdate();
+    await settings.noteUpdateChecked();
+    if (!mounted || info == null || !info.updateAvailable) return;
+    setState(() => _update = info);
+  }
+
+  /// The menu item. Unlike the automatic check this ALWAYS answers —
+  /// "you have the newest version" is the useful reply to someone who
+  /// asked, and saying nothing would read as a broken button.
+  Future<void> _checkUpdateNow(String locale) async {
+    final settings = context.read<AppSettings>();
+    final info = await UpdateService.checkForUpdate();
+    await settings.noteUpdateChecked();
+    if (!mounted) return;
+    if (info == null) {
+      _say(uiStrings['checkFailed']?[locale] ?? "Couldn't check right now");
+      return;
+    }
+    if (!info.updateAvailable) {
+      _say(uiStrings['upToDate']?[locale] ?? 'You have the newest version');
+      return;
+    }
+    setState(() {
+      _update = info;
+      _updateDismissed = false;
+    });
+  }
+
+  void _say(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<void> _openUpdate() async {
+    final info = _update;
+    if (info == null) return;
+    final uri = Uri.tryParse(info.downloadUrl);
+    if (uri == null) return;
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<AppSettings>();
@@ -279,6 +341,43 @@ class _FeedPageState extends State<FeedPage> {
                 : const Icon(Icons.refresh_outlined),
             onPressed: _refreshing ? null : _manualRefresh,
           ),
+          // The app's ONLY menu. It exists for the update check, which
+          // has nowhere else to live — this app has two pages and no
+          // settings screen, and adding one to hold a single control
+          // would be a worse trade than a three-dot button.
+          PopupMenuButton<Object>(
+            key: const ValueKey('feedOverflowMenu'),
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) {
+              if (value == 'check') {
+                _checkUpdateNow(locale);
+              } else if (value is UpdateCheckFrequency) {
+                settings.setUpdateCheckFrequency(value);
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem<Object>(
+                value: 'check',
+                child: Text(
+                    uiStrings['checkForUpdates']?[locale] ?? 'Check for updates'),
+              ),
+              const PopupMenuDivider(),
+              PopupMenuItem<Object>(
+                enabled: false,
+                child: Text(
+                  uiStrings['autoCheck']?[locale] ?? 'Check automatically',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ),
+              for (final f in UpdateCheckFrequency.values)
+                CheckedPopupMenuItem<Object>(
+                  value: f,
+                  checked: settings.updateCheckFrequency == f,
+                  child: Text(
+                      updateFrequencyLabels[f.prefValue]?[locale] ?? f.name),
+                ),
+            ],
+          ),
           const SizedBox(width: 8),
         ],
       ),
@@ -306,6 +405,13 @@ class _FeedPageState extends State<FeedPage> {
 
     return Column(
       children: [
+        if (_update case final info? when !_updateDismissed)
+          _UpdateBar(
+            info: info,
+            locale: locale,
+            onDownload: _openUpdate,
+            onDismiss: () => setState(() => _updateDismissed = true),
+          ),
         _Masthead(bundle: _bundle!, locale: locale),
         _SectionFilterBar(
           value: _sectionFilter,
@@ -610,6 +716,56 @@ class _ErrorState extends StatelessWidget {
             label: Text(uiStrings['retry']?[locale] ?? 'Retry'),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// "Version 1.2.8 is available", with a way to get it and a way to stop
+/// being told. Dismissal is for this session only: the reader said "not
+/// now", not "never", and the next launch is a new now.
+class _UpdateBar extends StatelessWidget {
+  const _UpdateBar({
+    required this.info,
+    required this.locale,
+    required this.onDownload,
+    required this.onDismiss,
+  });
+
+  final UpdateInfo info;
+  final String locale;
+  final VoidCallback onDownload;
+  final VoidCallback onDismiss;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final text = (uiStrings['updateAvailable']?[locale] ??
+            'Version {v} is available')
+        .replaceAll('{v}', info.latestVersion);
+    return Material(
+      color: scheme.secondaryContainer,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+        child: Row(children: [
+          Icon(Icons.system_update_alt,
+              size: 18, color: scheme.onSecondaryContainer),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(text,
+                style: TextStyle(color: scheme.onSecondaryContainer)),
+          ),
+          TextButton(
+            onPressed: onDownload,
+            child: Text(uiStrings['download']?[locale] ?? 'Download'),
+          ),
+          IconButton(
+            tooltip: uiStrings['dismiss']?[locale] ?? 'Not now',
+            icon: const Icon(Icons.close, size: 18),
+            color: scheme.onSecondaryContainer,
+            onPressed: onDismiss,
+          ),
+        ]),
       ),
     );
   }

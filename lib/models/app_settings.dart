@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:yahwehs_world/constants/update_check_frequency.dart';
+
 /// App-wide settings: locale (en / zh — matches exactly what the
 /// yswords-data feed provides; not attempting Traditional Chinese for
 /// v1) and theme mode. Deliberately small — this app has far fewer
@@ -8,12 +10,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppSettings extends ChangeNotifier {
   static const _localeKey = 'newsInsights.locale';
   static const _themeModeKey = 'newsInsights.themeMode';
+  static const _updateFreqKey = 'newsInsights.updateCheckFrequency';
+  static const _lastCheckKey = 'newsInsights.lastUpdateCheck';
 
   String _locale = 'en';
   ThemeMode _themeMode = ThemeMode.system;
+  UpdateCheckFrequency _updateFreq = UpdateCheckFrequency.daily;
+  DateTime? _lastUpdateCheck;
 
   String get locale => _locale;
   ThemeMode get themeMode => _themeMode;
+  UpdateCheckFrequency get updateCheckFrequency => _updateFreq;
+
+  /// Whether enough time has passed to ask GitHub again.
+  ///
+  /// The timestamp is written once per check WHATEVER THE ANSWER — not
+  /// only when an update is found. Recording it only on a hit would mean
+  /// a reader who is up to date gets checked on every launch, which is
+  /// the opposite of what "daily" means.
+  bool get updateCheckIsDue {
+    final gap = _updateFreq.gap;
+    if (gap == null) return false;
+    final last = _lastUpdateCheck;
+    if (last == null) return true;
+    return DateTime.now().difference(last) >= gap;
+  }
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -24,6 +45,9 @@ class AppSettings extends ChangeNotifier {
       'dark' => ThemeMode.dark,
       _ => ThemeMode.system,
     };
+    _updateFreq =
+        UpdateCheckFrequency.fromPref(prefs.getString(_updateFreqKey));
+    _lastUpdateCheck = DateTime.tryParse(prefs.getString(_lastCheckKey) ?? '');
     notifyListeners();
   }
 
@@ -43,6 +67,20 @@ class AppSettings extends ChangeNotifier {
   }
 
   void toggleLocale() => setLocale(_locale == 'en' ? 'zh' : 'en');
+
+  Future<void> setUpdateCheckFrequency(UpdateCheckFrequency f) async {
+    if (_updateFreq == f) return;
+    _updateFreq = f;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_updateFreqKey, f.prefValue);
+  }
+
+  Future<void> noteUpdateChecked() async {
+    _lastUpdateCheck = DateTime.now();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_lastCheckKey, _lastUpdateCheck!.toIso8601String());
+  }
 
   Future<void> setThemeMode(ThemeMode mode) async {
     if (_themeMode == mode) return;
