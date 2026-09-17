@@ -1,13 +1,25 @@
-"""Generates the Yahweh's World app icon: a flat medium-blue globe with
-white grid lines, an open white book in front — the app's news-meets-
-Scripture motif — on the same light-blue ground as its sister app.
+"""Generates the News Insight app icon: a flat green globe with white
+grid lines, an open white book in front — the app's news-meets-Scripture
+motif — on a pale green ground.
 
-v3 — restyled to match Yahweh's Words (雅伟之言): that icon is a flat
-illustration (solid light-blue background, medium-blue fill, white
-detail, dark-blue outlines, no gradients or soft shadows), and the two
-apps should read as siblings on a home screen. Replaces the v2 warm
-amber gradient + drop-shadow look, which matched nothing else in the
-family. Palette sampled directly from yswords/web/icons/Icon-512.png.
+v4 (2026-09-17) — GREEN, and the point is that it is not blue.
+「news insight the color is the same as yahweh's words」, and it was:
+v3 sampled its palette straight out of yswords/web/icons/Icon-512.png
+so the two would read as siblings on a home screen. They read as twins
+instead. At 44 px on the /about page, 雅伟之言 (blue mark on pale blue)
+and this one (blue mark on pale blue) are the same picture, while
+雅伟之剑 (red on pale pink) and 雅伟之界 (navy on cream) are instantly
+apart.
+
+So the FAMILY is kept and the HUE is moved: still a flat illustration —
+pale ground, saturated fill, white detail, dark outline of the same hue,
+no gradients, no shadows — which is what actually makes these four look
+related. Green rather than the warm amber of v2 because the globe app's
+ground is cream, and two warm pale grounds would have swapped one
+collision for another.
+
+The app's chrome follows this file: `lib/theme/app_theme.dart` seeds
+Material 3 from BLUE below, so changing the icon changes the app.
 
 Outputs:
   icon.png            — full icon (background + foreground), 1024x1024
@@ -15,10 +27,24 @@ Outputs:
                         adaptive icons (kept within the ~66% safe zone)
   preview_*.png       — small-size legibility checks
 
-Run: python3 generate_icon.py
+Run from anywhere: python3 assets/icon/generate_icon.py
+       then: dart run flutter_launcher_icons
 """
 
+import os
+
 from PIL import Image, ImageDraw
+
+# Beside THIS FILE, not beside whatever directory it was run from.
+# 2026-09-17: run once from the repository root, it wrote eight PNGs
+# there and left the real ones untouched — and said "wrote icon.png"
+# while doing it, so nothing looked wrong until the icons in git were
+# still the old colour.
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+
+def out(name: str) -> str:
+    return os.path.join(HERE, name)
 
 SCALE = 4
 SIZE = 1024 * SCALE
@@ -34,10 +60,10 @@ ART_SPAN = 0.67
 ART_VSHIFT = 0.5 - (0.135 + 0.83) / 2
 
 # Sister-app palette (sampled from Yahweh's Words Icon-512.png).
-BG = (178, 224, 247, 255)        # light blue ground
-BLUE = (46, 114, 164, 255)       # medium blue fill
-WHITE = (240, 248, 252, 255)     # near-white detail
-OUTLINE = (26, 88, 142, 255)     # dark blue outline
+BG = (188, 232, 204, 255)        # pale green ground
+BLUE = (46, 140, 90, 255)        # medium green fill
+WHITE = (240, 250, 244, 255)     # near-white detail
+OUTLINE = (26, 107, 66, 255)     # dark green outline
 
 
 def quad_bezier(p0, p1, p2, steps=60):
@@ -153,18 +179,18 @@ def save_downscaled(img: Image.Image, path: str, out_size: int = 1024):
 
 if __name__ == "__main__":
     full = build(foreground_only=False)
-    save_downscaled(full, "icon.png")
-    print("wrote icon.png")
+    save_downscaled(full, out("icon.png"))
+    print("wrote", out("icon.png"))
     fg = build(foreground_only=True)
-    save_downscaled(fg, "icon_foreground.png")
-    print("wrote icon_foreground.png")
+    save_downscaled(fg, out("icon_foreground.png"))
+    print("wrote", out("icon_foreground.png"))
 
     for size in (16, 32, 48, 96, 180):
-        full.resize((size, size), Image.LANCZOS).save(f"preview_{size}.png")
+        full.resize((size, size), Image.LANCZOS).save(out(f"preview_{size}.png"))
     strip = Image.new("RGBA", (16 + 32 + 48 + 96 + 180 + 60, 190), (255, 255, 255, 255))
     x = 10
     for size in (16, 32, 48, 96, 180):
-        strip.paste(Image.open(f"preview_{size}.png"), (x, 185 - size - 3))
+        strip.paste(Image.open(out(f"preview_{size}.png")), (x, 185 - size - 3))
         x += size + 10
-    strip.save("preview_strip.png")
+    strip.save(out("preview_strip.png"))
     print("wrote previews")

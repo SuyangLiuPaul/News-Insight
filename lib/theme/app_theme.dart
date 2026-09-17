@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 /// News Insight's own visual identity — matched to the app icon's
-/// blue (assets/icon/generate_icon.py's BLUE, also the web splash and
+/// green (assets/icon/generate_icon.py's BLUE, also the web splash and
 /// theme_color), so the in-app chrome doesn't clash with the icon and
-/// loading screen the user actually sees first. Material 3's tonal
+/// loading screen the user actually sees first.
+///
+/// 2026-09-17: green, having been blue. The icon was drawn from
+/// 雅伟之言's palette so the two would look related and they came out
+/// looking identical; see the note at the top of `generate_icon.py`.
+/// This constant is downstream of that file — change one, change both,
+/// or the chrome fights the splash screen. Material 3's tonal
 /// system derives the full light/dark neutral palette (including the
 /// charcoal-toned dark-mode surfaces) from this one seed.
 class AppTheme {
   AppTheme._();
 
-  static const Color _seed = Color(0xFF2E72A4); // icon blue
+  static const Color _seed = Color(0xFF2E8C5A); // icon green
 
   // Bundled CJK fallback (assets/fonts/) — see the pubspec.yaml `fonts:`
   // comment for why this is bundled rather than left to the browser's
