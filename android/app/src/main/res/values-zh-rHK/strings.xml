@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Traditional Chinese home-screen label.
+         `values-zh` holds the Simplified name, and Android does NOT
+         fall back from zh-TW / zh-HK to it: measured with aapt2 on the
+         1.2.8 APK, a Taiwan or Hong Kong phone showed 'News Insight'
+         while a mainland one showed 新闻洞见. 2026-09-17 「app名是中文还是
+         英文根据user的语言决定吧」.
+         Three folders because Android resolves script-qualified locales
+         (b+zh+Hant, API 24+) before region ones, and old devices only
+         understand the region form. -->
+    <string name="app_name">新聞洞見</string>
+</resources>
