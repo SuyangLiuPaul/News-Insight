@@ -144,8 +144,8 @@ class UpdateService {
   }
 
   /// The asset for this platform, by the names `release_github.sh`
-  /// actually uploads: `NewsInsight-Android.apk`, `NewsInsight-iOS.zip`,
-  /// `NewsInsight-macOS.zip`, `NewsInsight-Web.zip`.
+  /// actually uploads: `News-Insight-Android-v…apk`, `News-Insight-iOS-v…zip`,
+  /// `News-Insight-macOS-v…zip`, `News-Insight-Web-v…zip`.
   ///
   /// iOS returns null on purpose — its zip is an unsigned .app that a
   /// phone cannot install from a browser, so the release page (which

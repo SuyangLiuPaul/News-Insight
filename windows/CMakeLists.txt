@@ -4,7 +4,7 @@ project(yahwehs_world LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "yahwehs_world")
+set(BINARY_NAME "News-Insight")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

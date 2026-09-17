@@ -39,8 +39,8 @@ LOG="/tmp/yahwehs-world-ios-reinstall.log"
 FLUTTER="/Users/pliu0036/flutter/bin/flutter"
 PROJECT="/Users/pliu0036/Documents/CodingProject/yahwehs_world"
 IOS_APP="$PROJECT/build/ios/iphoneos/Runner.app"
-MACOS_APP="$PROJECT/build/macos/Build/Products/Release/yahwehs_world.app"
-MACOS_DEST="/Applications/Yahweh's World.app"
+MACOS_APP="$PROJECT/build/macos/Build/Products/Release/News-Insight.app"
+MACOS_DEST="/Applications/News Insight.app"
 
 IOS_DEVICES=(
   "9FA8108D-E7E4-58F5-8326-3BD835C3A5E7|iPhone 16 Pro Max (Paul)"

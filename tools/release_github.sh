@@ -322,7 +322,7 @@ rm -rf "$OUT/_apkcheck"
 
 echo "==> macos"
 "$FLUTTER" build macos --release "${DEFINES[@]}"
-MAC_APP="build/macos/Build/Products/Release/yahwehs_world.app"
+MAC_APP="build/macos/Build/Products/Release/News-Insight.app"
 drop_stale_archive "$OUT/News-Insight-macOS-v$VERSION.zip"
 ( cd "$(dirname "$MAC_APP")" && zip -qry "$OUT/News-Insight-macOS-v$VERSION.zip" "$(basename "$MAC_APP")" )
 # `Versions/A/App`, NOT `App.framework/App`. On disk the latter resolves,
@@ -333,7 +333,7 @@ drop_stale_archive "$OUT/News-Insight-macOS-v$VERSION.zip"
 # The real binary is 9,579,520 bytes and carries the version four times,
 # because it is a universal binary with an x86_64 and an arm64 slice.
 verify_artifact "$OUT/News-Insight-macOS-v$VERSION.zip" \
-  "yahwehs_world.app/Contents/Frameworks/App.framework/Versions/A/App" \
+  "News-Insight.app/Contents/Frameworks/App.framework/Versions/A/App" \
   "the macOS zip"
 
 echo "==> ios"
