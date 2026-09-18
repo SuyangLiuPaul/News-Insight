@@ -19,7 +19,7 @@
 # the others. Exit 0 iff at least one target got the build.
 #
 # Triggered by: ~/Library/LaunchAgents/com.yahwehsworld.ios-reinstall.plist
-# Log:          /tmp/yahwehs-world-ios-reinstall.log (rotates each run)
+# Log:          /tmp/news-insight-ios-reinstall.log (rotates each run)
 #
 # Prerequisites (same as the sibling script):
 #   1. Mac awake at the fire time.
@@ -31,13 +31,13 @@
 #      only fix is signing in again by hand.
 #
 # Manual run:
-#   ~/Documents/CodingProject/yahwehs_world/tools/yahwehs-world-ios-reinstall.sh
+#   ~/Documents/CodingProject/News-Insight/tools/news-insight-ios-reinstall.sh
 
 # No `set -e` — a failure on one device must not abort the rest.
 
-LOG="/tmp/yahwehs-world-ios-reinstall.log"
+LOG="/tmp/news-insight-ios-reinstall.log"
 FLUTTER="/Users/pliu0036/flutter/bin/flutter"
-PROJECT="/Users/pliu0036/Documents/CodingProject/yahwehs_world"
+PROJECT="/Users/pliu0036/Documents/CodingProject/News-Insight"
 IOS_APP="$PROJECT/build/ios/iphoneos/Runner.app"
 MACOS_APP="$PROJECT/build/macos/Build/Products/Release/News-Insight.app"
 MACOS_DEST="/Applications/News Insight.app"

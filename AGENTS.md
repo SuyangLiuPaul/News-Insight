@@ -25,7 +25,7 @@ Every command below spells it out.
 /Users/pliu0036/flutter/bin/flutter test        # ~5s, 24 tests as of 1.2.6
 tools/release_web.sh                            # build + deploy web (prod)
 tools/release_web.sh --build                    # build only, no deploy
-tools/yahwehs-world-ios-reinstall.sh            # iPhone + iPad + this Mac
+tools/news-insight-ios-reinstall.sh            # iPhone + iPad + this Mac
 ```
 
 There is only one web site and it is production. `release_web.sh` stamps
@@ -52,7 +52,7 @@ When two documents disagree, **the tree wins, then `HANDOFF.md`**.
 
 | repo | path | what it owns |
 |---|---|---|
-| `yahwehs_world` | `~/Documents/CodingProject/yahwehs_world` | this app — rendering, caching, locale, icons, releases |
+| `News-Insight` | `~/Documents/CodingProject/News-Insight` | this app — rendering, caching, locale, icons, releases |
 | `yswords-data` | `~/Documents/CodingProject/yswords-data` | RSS ingest, verse deep-match, translation, the published JSON |
 
 A third repo, `yswords-apps` (`~/Documents/CodingProject/yswords-apps`,
@@ -241,7 +241,7 @@ Devices, by hardware udid:
 A launchd job, `~/Library/LaunchAgents/com.yahwehsworld.ios-reinstall.plist`,
 runs the reinstall nightly at 04:40 because the free iOS signing
 certificate expires every 7 days. **The script it runs is a copy at
-`~/.config/yahwehs_world/scripts/`, not the one in `tools/`** — launchd
+`~/.config/news-insight/scripts/`, not the one in `tools/`** — launchd
 is blocked by TCC from reading `~/Documents`, and Full Disk Access does
 not lift it. Edit both, or the job silently runs the old one. They are
 in sync as of 2026-09-04.

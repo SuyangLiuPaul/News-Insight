@@ -25,7 +25,7 @@ Two things found while checking facts rather than repeating them:
   mount on a locked device. At 04:40 the devices are locked, so this is
   the expected outcome every night, not a transient. Corrected the
   script's message to distinguish locked from unreachable, and re-synced
-  the runtime copy at `~/.config/yahwehs_world/scripts/`. What to *do*
+  the runtime copy at `~/.config/news-insight/scripts/`. What to *do*
   about it is an open decision for the owner — `docs/OPEN-ITEMS.md` #1.
 - **The pipeline is now at 111/111 deep-matched, zero fallback**,
   measured off the live feed. On 2026-08-25 it was 72/132 with three

@@ -6,7 +6,7 @@
 [![Latest release](https://img.shields.io/github/v/release/SuyangLiuPaul/News-Insight)](https://github.com/SuyangLiuPaul/News-Insight/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Live app:** [news-insight.netlify.app](https://news-insight.netlify.app) · **Full documentation:** [SuyangLiuPaul.github.io/yahwehs_world](https://SuyangLiuPaul.github.io/yahwehs_world/)
+**Live app:** [news-insight.netlify.app](https://news-insight.netlify.app) · **Full documentation:** [SuyangLiuPaul.github.io/News-Insight](https://SuyangLiuPaul.github.io/News-Insight/)
 
 ---
 
@@ -37,7 +37,7 @@ It's a dedicated reader, not a scraper: all content is pulled from **[yswords-da
 
 ```bash
 git clone https://github.com/SuyangLiuPaul/News-Insight.git
-cd yahwehs_world
+cd News-Insight
 flutter pub get
 flutter run -d chrome   # or -d macos / an attached iOS or Android device
 ```
@@ -83,7 +83,7 @@ assets/
 
 The README covers the essentials; the full write-up — architecture, the `yswords-data` schema this app consumes, and the engineering notes behind some non-obvious fixes (a CJK font race on cold load, a CORS quirk that silently broke a third of all images, why the cache layer needed a rethink) — lives on the project's GitHub Pages site:
 
-**→ [SuyangLiuPaul.github.io/yahwehs_world](https://SuyangLiuPaul.github.io/yahwehs_world/)**
+**→ [SuyangLiuPaul.github.io/News-Insight](https://SuyangLiuPaul.github.io/News-Insight/)**
 
 ## Data & attribution
 

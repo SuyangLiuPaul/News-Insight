@@ -12,11 +12,11 @@ Read `AGENTS.md` first. Last reviewed **2026-09-05**.
 ## 1. The nightly iOS reinstall cannot install to a locked device
 
 **[carried forward]** — verified 2026-09-04 from
-`/tmp/yahwehs-world-ios-reinstall.log` for that day's 04:40 run. **Could
+`/tmp/news-insight-ios-reinstall.log` for that day's 04:40 run. **Could
 not be re-read on 2026-09-05:** the script does `exec > "$LOG" 2>&1`
 (line 50), so the log is truncated each run and the file is simply absent
 now; the plist's own `StandardOutPath`/`StandardErrorPath`
-(`/tmp/yahwehs-world-ios-reinstall.stdout.log` and `.stderr.log`) are
+(`/tmp/news-insight-ios-reinstall.stdout.log` and `.stderr.log`) are
 absent too. The diagnosis below is therefore carried forward on the
 2026-09-04 reading, not re-confirmed.
 
@@ -24,7 +24,7 @@ Two adjacent facts **[verified 2026-09-05]**: the job is still loaded
 (`launchctl list` shows `com.yahwehsworld.ios-reinstall`, last exit
 status 0 — note it exits 0 even on the nights the iOS legs fail, so exit
 status is not a health signal here), and the launchd copy at
-`~/.config/yahwehs_world/scripts/` is byte-identical to `tools/`
+`~/.config/news-insight/scripts/` is byte-identical to `tools/`
 (md5 `afa7cc598cf206c65ca22de5d893a46b`), so the drift trap AGENTS.md
 warns about has not sprung.
 
@@ -49,7 +49,7 @@ message has been corrected to name the locked-device case.
 
 **Not decided:** what to do about it. The options, none free:
 
-- run `tools/yahwehs-world-ios-reinstall.sh` by hand while holding an
+- run `tools/news-insight-ios-reinstall.sh` by hand while holding an
   unlocked device — reliable, but manual every 7 days;
 - move the job to a time the owner is normally awake and the device
   unlocked, accepting it will still miss some nights;
