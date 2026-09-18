@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'package:yahwehs_world/models/news_article.dart';
-import 'package:yahwehs_world/services/remote_data_service.dart';
+import 'package:news_insight/models/news_article.dart';
+import 'package:news_insight/services/remote_data_service.dart';
 
 /// Loads the bilingual daily-news bundle that powers this whole app.
 ///

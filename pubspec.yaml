@@ -1,4 +1,4 @@
-name: yahwehs_world
+name: news_insight
 description: "News Insight — world, China and Australia headlines paired with a related Bible verse and reflection, powered by the yswords-data feed."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

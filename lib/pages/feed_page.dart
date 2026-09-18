@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:yahwehs_world/constants/update_check_frequency.dart';
-import 'package:yahwehs_world/models/app_settings.dart';
-import 'package:yahwehs_world/models/news_article.dart';
-import 'package:yahwehs_world/pages/article_detail_page.dart';
-import 'package:yahwehs_world/services/news_service.dart';
-import 'package:yahwehs_world/services/update_service.dart';
-import 'package:yahwehs_world/theme/ui_strings.dart';
-import 'package:yahwehs_world/utils/relative_time.dart';
-import 'package:yahwehs_world/widgets/article_card.dart';
+import 'package:news_insight/constants/update_check_frequency.dart';
+import 'package:news_insight/models/app_settings.dart';
+import 'package:news_insight/models/news_article.dart';
+import 'package:news_insight/pages/article_detail_page.dart';
+import 'package:news_insight/services/news_service.dart';
+import 'package:news_insight/services/update_service.dart';
+import 'package:news_insight/theme/ui_strings.dart';
+import 'package:news_insight/utils/relative_time.dart';
+import 'package:news_insight/widgets/article_card.dart';
 
 /// Wide-layout breakpoint — mirrors the master-detail pattern the
 /// original in-app News reader used (list left, detail right) rather

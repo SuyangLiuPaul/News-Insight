@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:yahwehs_world/models/news_article.dart';
-import 'package:yahwehs_world/theme/ui_strings.dart';
-import 'package:yahwehs_world/utils/book_name_localizer.dart';
+import 'package:news_insight/models/news_article.dart';
+import 'package:news_insight/theme/ui_strings.dart';
+import 'package:news_insight/utils/book_name_localizer.dart';
 
 /// The "Bible Lens" card — this app's actual differentiator: the
 /// AI-picked verse plus the reflection connecting it to the story.

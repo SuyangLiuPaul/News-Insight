@@ -3,7 +3,7 @@
 // lock in the display-time localization that fills that gap.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yahwehs_world/utils/book_name_localizer.dart';
+import 'package:news_insight/utils/book_name_localizer.dart';
 
 void main() {
   group('localizeVerseReference', () {

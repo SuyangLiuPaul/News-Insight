@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yahwehs_world/constants/update_check_frequency.dart';
+import 'package:news_insight/constants/update_check_frequency.dart';
 
 /// App-wide settings: locale (en / zh — matches exactly what the
 /// yswords-data feed provides; not attempting Traditional Chinese for

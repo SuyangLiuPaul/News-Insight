@@ -6,7 +6,7 @@
 // Run with: `flutter test test/news_article_test.dart`
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yahwehs_world/models/news_article.dart';
+import 'package:news_insight/models/news_article.dart';
 
 void main() {
   group('NewsArticle.fromJson', () {

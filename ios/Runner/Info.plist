@@ -16,8 +16,12 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<!-- 2026-09-18: was `yahwehs_world`, the Dart package name, which
+	     iOS shows in Settings and under the icon when the display name
+	     does not fit. CFBundleDisplayName above has said News Insight
+	     all along; this key had never been touched since the scaffold. -->
 	<key>CFBundleName</key>
-	<string>yahwehs_world</string>
+	<string>News Insight</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

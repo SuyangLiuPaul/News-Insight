@@ -22,7 +22,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 
-import 'package:yahwehs_world/constants/app_version.dart';
+import 'package:news_insight/constants/app_version.dart';
 
 /// The answer to one check. [updateAvailable] is the only thing the UI
 /// branches on; the URL is already resolved for this platform.

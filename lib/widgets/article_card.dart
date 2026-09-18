@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:yahwehs_world/models/news_article.dart';
-import 'package:yahwehs_world/utils/book_name_localizer.dart';
-import 'package:yahwehs_world/utils/relative_time.dart';
-import 'package:yahwehs_world/widgets/retry_network_image.dart';
+import 'package:news_insight/models/news_article.dart';
+import 'package:news_insight/utils/book_name_localizer.dart';
+import 'package:news_insight/utils/relative_time.dart';
+import 'package:news_insight/widgets/retry_network_image.dart';
 
 /// A single headline row in the feed list. Shows a thumbnail (or a
 /// section-tinted gradient placeholder when no image is available —

@@ -7,9 +7,9 @@ library;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:yahwehs_world/constants/update_check_frequency.dart';
-import 'package:yahwehs_world/models/app_settings.dart';
-import 'package:yahwehs_world/services/update_service.dart';
+import 'package:news_insight/constants/update_check_frequency.dart';
+import 'package:news_insight/models/app_settings.dart';
+import 'package:news_insight/services/update_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

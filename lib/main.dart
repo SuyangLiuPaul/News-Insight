@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:yahwehs_world/models/app_settings.dart';
-import 'package:yahwehs_world/pages/feed_page.dart';
-import 'package:yahwehs_world/theme/app_theme.dart';
-import 'package:yahwehs_world/theme/ui_strings.dart';
+import 'package:news_insight/models/app_settings.dart';
+import 'package:news_insight/pages/feed_page.dart';
+import 'package:news_insight/theme/app_theme.dart';
+import 'package:news_insight/theme/ui_strings.dart';
 
 void main() {
   runApp(

@@ -3,11 +3,11 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:yahwehs_world/models/news_article.dart';
-import 'package:yahwehs_world/theme/ui_strings.dart';
-import 'package:yahwehs_world/utils/relative_time.dart';
-import 'package:yahwehs_world/widgets/retry_network_image.dart';
-import 'package:yahwehs_world/widgets/verse_lens_card.dart';
+import 'package:news_insight/models/news_article.dart';
+import 'package:news_insight/theme/ui_strings.dart';
+import 'package:news_insight/utils/relative_time.dart';
+import 'package:news_insight/widgets/retry_network_image.dart';
+import 'package:news_insight/widgets/verse_lens_card.dart';
 
 /// Full article view. Used both as a pushed route (narrow screens)
 /// and embedded directly as the right-hand pane of the feed's
