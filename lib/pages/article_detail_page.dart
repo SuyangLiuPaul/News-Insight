@@ -7,7 +7,6 @@ import 'package:news_insight/models/news_article.dart';
 import 'package:news_insight/theme/ui_strings.dart';
 import 'package:news_insight/utils/relative_time.dart';
 import 'package:news_insight/widgets/retry_network_image.dart';
-import 'package:news_insight/widgets/verse_lens_card.dart';
 
 /// Full article view. Used both as a pushed route (narrow screens)
 /// and embedded directly as the right-hand pane of the feed's
@@ -59,8 +58,8 @@ class _DetailBody extends StatelessWidget {
         if (article.image != null && article.image!.isNotEmpty)
           // 2026-08-06: this was a bare AspectRatio(16/9), which on a
           // wide detail pane meant the hero grew with the column — at
-          // 1000px it was 560px tall and pushed the headline and the
-          // Bible Lens off the bottom of the window. The photo is
+          // 1000px it was 560px tall and pushed the headline off the
+          // bottom of the window. The photo is
           // context, not the content. 16:9 still holds on narrow
           // screens; past ~570px wide it stops growing and crops
           // instead, which BoxFit.cover already handles.
@@ -118,14 +117,6 @@ class _DetailBody extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 16),
-        // 2026-08-06: the lens used to sit BELOW "Read original". The
-        // whole premise of this app is world news read alongside
-        // Scripture, and that panel was placed after the button that
-        // sends the reader away — so the one thing only this app does
-        // was the one thing most readers never saw. Verse first, exit
-        // after.
-        VerseLensCard(article: article, locale: locale),
         const SizedBox(height: 16),
         OutlinedButton.icon(
           onPressed: _openOriginal,

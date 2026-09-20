@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>News Insight — Documentation</title>
-<meta name="description" content="Architecture, data schema, and engineering notes for News Insight, a bilingual world-news reader paired with an AI-picked Bible verse per story.">
+<meta name="description" content="Architecture, data schema, and engineering notes for News Insight, a bilingual world-news reader.">
 <style>
   :root {
     --accent: #B8860B;
@@ -205,7 +205,7 @@
 
 <div class="hero">
   <h1>News Insight <span class="zh">新闻洞见</span></h1>
-  <p class="tagline">A bilingual (English / 简体中文) world-news reader that pairs every headline with an AI-picked Bible verse and reflection — read from the shared <code>yswords-data</code> feed.</p>
+  <p class="tagline">A bilingual (English / 简体中文) world-news reader — read from the shared <code>yswords-data</code> feed.</p>
   <div class="cta">
     <a class="btn primary" href="https://news-insight.netlify.app">Open the live app</a>
     <a class="btn secondary" href="https://github.com/SuyangLiuPaul/News-Insight">View on GitHub</a>
@@ -227,7 +227,7 @@
 
 <section id="overview">
   <h2><span class="num">01</span> Overview</h2>
-  <p>News Insight is a dedicated reader for a bilingual news feed that pairs each headline — from the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks — with a Bible verse an AI has matched to it, plus a short reflection connecting the two. It doesn't run its own scraping or AI pipeline: all of that lives upstream in <a href="https://yswords-data.netlify.app">yswords-data</a>, a shared data source originally built for a sister Bible-reading app and kept CORS-enabled specifically so other clients like this one could read it.</p>
+  <p>News Insight is a dedicated reader for a bilingual news feed — from the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks. <strong>Since 2026-09-20 it shows the news only:</strong> the feed still attaches an AI-matched Bible verse and a reflection to each story, and the app reads neither. It doesn't run its own scraping or AI pipeline: all of that lives upstream in <a href="https://yswords-data.netlify.app">yswords-data</a>, a shared data source originally built for a sister Bible-reading app and kept CORS-enabled specifically so other clients like this one could read it.</p>
   <p class="muted">This project is the client only — a Flutter app (web, Android, iOS, macOS from one codebase) that fetches, caches, and renders that feed.</p>
 
   <div class="grid">
@@ -324,6 +324,7 @@
   </table>
 
   <h3>NewsVerse</h3>
+  <p><em>The feed's shape, kept for reference. The app has not parsed <code>verse</code> or <code>reflection</code> since 2026-09-20 and nothing it renders can show them.</em></p>
   <table>
     <tr><th>field</th><th>type</th><th>notes</th></tr>
     <tr><td><code>reference</code></td><td>string</td><td><strong>Always English</strong> (e.g. <code>"Matthew 5:9"</code>) — there is no <code>referenceZh</code> upstream. The app localizes the book name at display time (see Engineering notes).</td></tr>
@@ -368,7 +369,7 @@
   <div class="card">
     <span class="tag">i18n</span>
     <h4>"Matthew 5:9" instead of "马太福音 5:9"</h4>
-    <p>The verse <code>reference</code> field is English-only upstream — there's no <code>referenceZh</code>, unlike every other text field. <code>lib/utils/book_name_localizer.dart</code> splits a reference into book name + chapter:verse and maps the book name through a Simplified-Chinese table (ported from the main YsWords app's book-name mapping), covering all 66 books plus the corpus's singular "Psalm" form — with a graceful fallback to the original string for anything unrecognized.</p>
+    <p><em>Removed 2026-09-20 with the verses.</em> The verse <code>reference</code> field is English-only upstream — there's no <code>referenceZh</code>, unlike every other text field. <code>lib/utils/book_name_localizer.dart</code> split a reference into book name + chapter:verse and mapped the book name through a Simplified-Chinese table (ported from the main YsWords app's book-name mapping), covering all 66 books plus the corpus's singular "Psalm" form — with a graceful fallback to the original string for anything unrecognized.</p>
   </div>
 </section>
 

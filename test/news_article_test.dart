@@ -21,14 +21,6 @@ void main() {
         'publishedAt': '2026-04-21T06:41:46.986Z',
         'title': {'en': 'English title', 'zh': '中文标题'},
         'summary': {'en': 'English summary', 'zh': '中文摘要'},
-        'reflection': {'en': 'Reflection', 'zh': '反思'},
-        'verse': {
-          'reference': 'Philippians 4:8',
-          'textEn': 'Whatever is true...',
-          'textZh': '凡是真實的...',
-          'themeEn': 'Discernment',
-          'themeZh': '辨識',
-        },
       });
 
       expect(a.id, 'abc123');
@@ -36,8 +28,6 @@ void main() {
       expect(a.title('en'), 'English title');
       expect(a.title('zh'), '中文标题');
       expect(a.summary('zh'), '中文摘要');
-      expect(a.verse.reference, 'Philippians 4:8');
-      expect(a.verse.theme('zh'), '辨識');
       expect(a.publishedAt!.toUtc().year, 2026);
     });
 
@@ -52,20 +42,10 @@ void main() {
         'publishedAt': null,
         'title': {'en': 'Only English', 'zh': null},
         'summary': {'en': 'Only English summary'},
-        'reflection': {'en': 'Only English reflection'},
-        'verse': {
-          'reference': 'Genesis 1:1',
-          'textEn': 'In the beginning…',
-          'textZh': '',
-          'themeEn': 'Creation',
-          'themeZh': '',
-        },
       });
 
       expect(a.title('zh'), 'Only English');
       expect(a.summary('zh'), 'Only English summary');
-      expect(a.verse.text('zh'), 'In the beginning…');
-      expect(a.verse.theme('zh'), 'Creation');
       expect(a.image, isNull);
       expect(a.publishedAt, isNull);
     });
@@ -80,7 +60,6 @@ void main() {
       expect(a.section, 'world');
       expect(a.titleEn, '');
       expect(a.publishedAt, isNull);
-      expect(a.verse.reference, '');
     });
 
     test('body() falls back to whichever side has content', () {

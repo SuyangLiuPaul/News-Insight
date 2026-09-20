@@ -139,11 +139,10 @@ Nothing is in flight. Candidates, roughly by value:
 2. **Get the iOS devices back on a current build** — see
    `docs/OPEN-ITEMS.md` #1. Needs the owner present with a device
    unlocked, or a change of approach.
-3. **Judge verse quality now that coverage is 100%.** Every earlier
-   attempt to assess this was confounded: most stories were on keyword
-   fallback, so the deep-match prompt was never really being read. This
-   is the first time the question can be asked honestly. If the verses
-   are still weak, the lever is the prompt in `aiDeepMatch`, not quota.
+3. ~~**Judge verse quality now that coverage is 100%.**~~ Moot since
+   2026-09-20: the app no longer shows verses or reflections, so there is
+   nothing in it to judge. The pipeline still produces them (see the
+   note at the top of `AGENTS.md`).
 4. ~~**`yswords-data/README.md` overstates the key advice.**~~ Checked
    2026-09-05: already softened. The README now says a second key
    "turned out **not** to be necessary" and keeps the measurement as

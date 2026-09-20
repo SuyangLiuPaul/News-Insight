@@ -9,10 +9,10 @@ import 'package:news_insight/services/remote_data_service.dart';
 ///
 /// Source: the yswords-data central data repo
 /// (`https://yswords-data.netlify.app/data/daily_news.json`) — a
-/// CORS-enabled, hourly-refreshed feed that pairs world/china/
-/// australia headlines with an AI-picked Bible verse + reflection.
-/// This app is a dedicated reader for that feed; it does not run its
-/// own scraping/AI pipeline.
+/// CORS-enabled, hourly-refreshed feed of world/china/australia (and
+/// more) headlines. The feed also carries an AI-picked Bible verse and
+/// a reflection per story; this app reads neither. It is a dedicated
+/// reader for that feed and does not run its own scraping/AI pipeline.
 ///
 /// Override at build time:
 ///   `--dart-define=DAILY_NEWS_URL=https://example/data/daily_news.json`

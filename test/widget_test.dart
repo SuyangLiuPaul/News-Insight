@@ -10,7 +10,6 @@ import 'package:news_insight/models/news_article.dart';
 import 'package:news_insight/pages/article_detail_page.dart';
 import 'package:news_insight/theme/app_theme.dart';
 import 'package:news_insight/widgets/article_card.dart';
-import 'package:news_insight/widgets/verse_lens_card.dart';
 
 NewsArticle _fixtureArticle() => NewsArticle.fromJson({
       'id': 'fixture-1',
@@ -23,6 +22,8 @@ NewsArticle _fixtureArticle() => NewsArticle.fromJson({
       'title': {'en': 'A test headline', 'zh': '测试标题'},
       'summary': {'en': 'A test summary.', 'zh': '测试摘要。'},
       'body': {'en': 'The full test article body.', 'zh': '完整的测试正文。'},
+      // The feed still carries these on every story. The app reads
+      // neither — the tests below hold it to that.
       'reflection': {
         'en': 'This story reminds us to be discerning.',
         'zh': '这则新闻提醒我们要有辨识力。',
@@ -42,7 +43,7 @@ Widget _wrap(Widget child) => MaterialApp(
     );
 
 void main() {
-  testWidgets('ArticleCard shows title, source and verse chip',
+  testWidgets('ArticleCard shows title and source, and no verse',
       (tester) async {
     final article = _fixtureArticle();
     await tester.pumpWidget(_wrap(
@@ -56,7 +57,7 @@ void main() {
 
     expect(find.text('A test headline'), findsOneWidget);
     expect(find.textContaining('The Guardian'), findsOneWidget);
-    expect(find.text('Philippians 4:8'), findsOneWidget);
+    expect(find.textContaining('Philippians'), findsNothing);
   });
 
   testWidgets('ArticleCard switches to zh title when locale is zh',
@@ -74,19 +75,8 @@ void main() {
     expect(find.text('测试标题'), findsOneWidget);
   });
 
-  testWidgets('VerseLensCard shows verse text, reference and reflection',
-      (tester) async {
-    final article = _fixtureArticle();
-    await tester.pumpWidget(
-        _wrap(VerseLensCard(article: article, locale: 'en')));
-
-    expect(find.textContaining('Whatever is true'), findsOneWidget);
-    expect(find.textContaining('Philippians 4:8'), findsOneWidget);
-    expect(find.textContaining('discerning'), findsOneWidget);
-  });
-
-  testWidgets('ArticleDetailPage renders headline, body and verse card',
-      (tester) async {
+  testWidgets('ArticleDetailPage renders headline and body, and nothing '
+      'the AI added', (tester) async {
     final article = _fixtureArticle();
     await tester.pumpWidget(MaterialApp(
       theme: AppTheme.light(),
@@ -96,6 +86,31 @@ void main() {
 
     expect(find.text('A test headline'), findsOneWidget);
     expect(find.textContaining('The full test article body'), findsOneWidget);
-    expect(find.textContaining('Philippians 4:8'), findsOneWidget);
+
+    // 2026-09-20 「所有ai评价和经文全部去掉 只看新闻就够了」: the story's
+    // verse and reflection are in the JSON above and must not reach the
+    // screen, in either language.
+    for (final locale in ['en', 'zh']) {
+      await tester.pumpWidget(MaterialApp(
+        theme: AppTheme.light(),
+        home: ArticleDetailPage(article: article, locale: locale),
+      ));
+      await tester.pumpAndSettle();
+      for (final gone in [
+        'Philippians',
+        '腓立比书',
+        'Whatever is true',
+        '凡是真实的',
+        'discerning',
+        '辨识力',
+        'Bible Lens',
+        '圣经视角',
+        'Reflection',
+        '反思',
+      ]) {
+        expect(find.textContaining(gone), findsNothing,
+            reason: '$gone, $locale');
+      }
+    }
   });
 }

@@ -1,5 +1,5 @@
 name: news_insight
-description: "News Insight — world, China and Australia headlines paired with a related Bible verse and reflection, powered by the yswords-data feed."
+description: "News Insight — world, China and Australia headlines in English and 简体中文, powered by the yswords-data feed."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

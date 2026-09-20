@@ -57,7 +57,12 @@ message has been corrected to name the locked-device case.
 
 This needs the owner's call. Until then the phones drift.
 
-## 2. Verse quality has never been fairly assessed
+## 2. Verse quality has never been fairly assessed — MOOT
+
+**[closed 2026-09-20]** The app no longer shows verses or reflections at
+all (owner: 「所有ai评价和经文全部去掉 只看新闻就够了」), so there is no
+verse in it to judge. What follows is kept as the record of why the
+question was hard.
 
 **[carried forward]** — never assessed, and not assessed on 2026-09-05
 either. Judging verse quality is an editorial reading of live output,

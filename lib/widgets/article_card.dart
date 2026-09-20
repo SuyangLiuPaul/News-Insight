@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:news_insight/models/news_article.dart';
-import 'package:news_insight/utils/book_name_localizer.dart';
 import 'package:news_insight/utils/relative_time.dart';
 import 'package:news_insight/widgets/retry_network_image.dart';
 
 /// A single headline row in the feed list. Shows a thumbnail (or a
 /// section-tinted gradient placeholder when no image is available —
 /// same fallback the original in-app reader used, since RSS feeds
-/// don't reliably carry photos), title, source + time-ago, and a
-/// small chip teasing the paired Bible verse reference.
+/// don't reliably carry photos), title, and source + time-ago.
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
     super.key,
@@ -77,13 +75,6 @@ class ArticleCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (article.verse.reference.isNotEmpty) ...[
-                      const SizedBox(height: 8),
-                      _VerseChip(
-                        reference: localizeVerseReference(
-                            article.verse.reference, locale),
-                      ),
-                    ],
                   ],
                 ),
               ),
@@ -136,39 +127,6 @@ class _Thumbnail extends StatelessWidget {
         ),
       ),
       child: Icon(Icons.public, color: scheme.surface, size: 26),
-    );
-  }
-}
-
-class _VerseChip extends StatelessWidget {
-  const _VerseChip({required this.reference});
-  final String reference;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: scheme.primaryContainer.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.auto_stories_outlined,
-              size: 12, color: scheme.onPrimaryContainer),
-          const SizedBox(width: 4),
-          Text(
-            reference,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: scheme.onPrimaryContainer,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -4,9 +4,13 @@ This file is the entry point for anyone, human or AI, picking up
 News Insight. Read it before touching anything. It is deliberately
 short; everything it points at is longer.
 
-News Insight (新闻洞见) is a Flutter news reader. Every headline is
-paired by AI with a Bible verse and a short reflection. It ships to web,
-Android, iOS and macOS from one codebase, in English and 简体中文.
+News Insight (新闻洞见) is a Flutter news reader — the news and nothing
+else. Since 2026-09-20 (「所有ai评价和经文全部去掉 只看新闻就够了」) the app
+shows no AI commentary and no Bible verse, although the feed it reads
+still attaches both to every story: `NewsArticle` does not parse them, so
+nothing can render them. Do not add them back without the owner asking.
+It ships to web, Android, iOS and macOS from one codebase, in English
+and 简体中文.
 
 **It is a client, not a pipeline.** The app does no scraping, no AI and
 no translation. All of that lives in a second repo, `yswords-data`, and
@@ -202,8 +206,8 @@ lib/
   pages/      feed_page.dart (list + filter chips), article_detail_page
   services/   remote_data_service.dart — fetch, cache, archive paging
   theme/      app_theme.dart (ONE seed colour), ui_strings.dart (EN/ZH)
-  utils/      pure functions — book name localizing, relative time
-  widgets/    article_card, verse_lens_card, retry_network_image
+  utils/      pure functions — relative time
+  widgets/    article_card, retry_network_image
 ```
 
 `lib/theme/app_theme.dart` holds a single `_seed` colour and Material 3

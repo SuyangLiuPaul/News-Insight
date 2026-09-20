@@ -9,9 +9,11 @@ const Map<String, Map<String, String>> uiStrings = {
     'en': 'News Insight',
     'zh': '新闻洞见',
   },
+  // 2026-09-20: it read 「透过圣经看世界新闻」 while every story carried a
+  // verse. The verses are gone, so the line says what the app is.
   'tagline': {
-    'en': 'World news, read alongside Scripture',
-    'zh': '透过圣经看世界新闻',
+    'en': 'Headlines from around the world',
+    'zh': '来自世界各地的新闻',
   },
   // Only the 'All' chip is named here. Every other chip takes its label
   // from the feed's own `categoryLabel` (see SectionChips in
@@ -24,8 +26,6 @@ const Map<String, Map<String, String>> uiStrings = {
   'refresh': {'en': 'Refresh', 'zh': '刷新'},
   'lastUpdated': {'en': 'Updated {time}', 'zh': '更新于 {time}'},
   'readOriginal': {'en': 'Read original article', 'zh': '阅读原文'},
-  'bibleLens': {'en': 'Bible Lens', 'zh': '圣经视角'},
-  'reflection': {'en': 'Reflection', 'zh': '反思'},
   'loading': {'en': 'Loading…', 'zh': '加载中…'},
   'errorTitle': {'en': "Couldn't load news", 'zh': '无法加载新闻'},
   'errorBody': {

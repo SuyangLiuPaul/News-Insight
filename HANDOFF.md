@@ -7,6 +7,42 @@ disagrees with the tree, the tree wins.
 
 ---
 
+## 2026-09-20 — the AI verses and reflections come out; the app is the news and nothing else
+
+**Committed, not released.** `pubspec.yaml` still says 1.2.11; the next
+release carries this.
+
+The owner: 「新闻洞见从about page移除 并且这个app里面所有ai 评价和经文全部去掉
+只看新闻就够了」. Two things:
+
+- **The About page** at yahwehword.com/about (`web/about.html` in the
+  Words repo, not this one) no longer lists News Insight; the page
+  introduces three apps. `/dl/news` and `web/app-icons/news.png` stay,
+  because a URL that existed is not removed. Not deployed from here.
+- **This app** no longer shows the AI verse, the reflection, the Bible
+  Lens card, the verse chip on the feed rows, or the 「透过圣经看世界新闻」
+  tagline (now 「来自世界各地的新闻」). `NewsArticle` stopped parsing
+  `verse` and `reflection`, so nothing can render them; `NewsVerse`,
+  `VerseLensCard` and `book_name_localizer.dart` (whose only job was verse
+  references) are gone with their tests. The bundled snapshot
+  `assets/daily_news.json` was rewritten without `verse`, `reflection`,
+  `aiVerseId` and `translationState` (233 keys; 290 KB → 218 KB).
+
+Measured on the live feed the same day: **95 stories, 95 with a verse, 95
+with a reflection** — the pipeline still produces both, and the app now
+ignores both. `test/news_only_test.dart` pins the two places scripture
+could hide without a screen (the strings the app owns, the snapshot it
+ships) and `test/widget_test.dart` pins the screens, in both languages;
+the first was run against the old tree and fails there. Looked at on a
+real build (web, 420 px): feed rows are headline + source + age; the
+detail page is photo, headline, source, "Read original", body.
+
+**Not done, and it is the owner's call:** `yswords-data` still spends the
+AI quota on verse matching for a client that no longer shows it. Turning
+that step off is a change in that repo; nothing here depends on it.
+
+---
+
 ## 2026-09-04 — handover documentation; nightly iOS failure diagnosed
 
 No app behaviour changed.

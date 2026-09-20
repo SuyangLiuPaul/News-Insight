@@ -4,36 +4,11 @@
 // commit 1155923^ before the in-app News feature was removed). Kept
 // close to the original shape since the pipeline that produces this
 // JSON (yswords-data's scripts/refresh-news.mjs) is unchanged.
-
-class NewsVerse {
-  final String reference;
-  final String textEn;
-  final String textZh;
-  final String themeEn;
-  final String themeZh;
-
-  NewsVerse({
-    required this.reference,
-    required this.textEn,
-    required this.textZh,
-    required this.themeEn,
-    required this.themeZh,
-  });
-
-  factory NewsVerse.fromJson(Map<String, dynamic> j) => NewsVerse(
-        reference: (j['reference'] as String?) ?? '',
-        textEn: (j['textEn'] as String?) ?? '',
-        textZh: (j['textZh'] as String?) ?? '',
-        themeEn: (j['themeEn'] as String?) ?? '',
-        themeZh: (j['themeZh'] as String?) ?? '',
-      );
-
-  String text(String locale) =>
-      locale.startsWith('zh') && textZh.isNotEmpty ? textZh : textEn;
-
-  String theme(String locale) =>
-      locale.startsWith('zh') && themeZh.isNotEmpty ? themeZh : themeEn;
-}
+//
+// 2026-09-20, the owner: 「这个app里面所有ai评价和经文全部去掉 只看新闻
+// 就够了」. The feed still carries an AI-picked `verse` and a `reflection`
+// on every story; this model does not read them, so nothing downstream
+// can show them. They used to be `NewsVerse` and `reflectionEn/Zh`.
 
 class NewsArticle {
   /// `world` | `china` | `australia` (kept as String for forward-compat).
@@ -54,9 +29,6 @@ class NewsArticle {
   /// translation was produced (caller falls back to summary.zh).
   final String bodyEn;
   final String bodyZh;
-  final String reflectionEn;
-  final String reflectionZh;
-  final NewsVerse verse;
 
   NewsArticle({
     required this.section,
@@ -72,9 +44,6 @@ class NewsArticle {
     required this.summaryZh,
     required this.bodyEn,
     required this.bodyZh,
-    required this.reflectionEn,
-    required this.reflectionZh,
-    required this.verse,
   });
 
   factory NewsArticle.fromJson(Map<String, dynamic> j) {
@@ -82,8 +51,6 @@ class NewsArticle {
     final summary =
         (j['summary'] as Map?)?.cast<String, dynamic>() ?? const {};
     final body = (j['body'] as Map?)?.cast<String, dynamic>() ?? const {};
-    final reflection =
-        (j['reflection'] as Map?)?.cast<String, dynamic>() ?? const {};
     final pub = j['publishedAt'] as String?;
     final en = (title['en'] as String?) ?? '';
     return NewsArticle(
@@ -101,11 +68,6 @@ class NewsArticle {
           (summary['zh'] as String?) ?? (summary['en'] as String?) ?? '',
       bodyEn: (body['en'] as String?) ?? '',
       bodyZh: (body['zh'] as String?) ?? '',
-      reflectionEn: (reflection['en'] as String?) ?? '',
-      reflectionZh:
-          (reflection['zh'] as String?) ?? (reflection['en'] as String?) ?? '',
-      verse: NewsVerse.fromJson(
-          (j['verse'] as Map?)?.cast<String, dynamic>() ?? const {}),
     );
   }
 
@@ -125,11 +87,6 @@ class NewsArticle {
     if (bodyZh.isNotEmpty) return bodyZh;
     return bodyEn;
   }
-
-  String reflection(String locale) =>
-      locale.startsWith('zh') && reflectionZh.isNotEmpty
-          ? reflectionZh
-          : reflectionEn;
 }
 
 class NewsSection {

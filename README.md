@@ -1,6 +1,6 @@
 # News Insight 新闻洞见
 
-**A bilingual (English / 简体中文) world-news reader that pairs every headline with an AI-picked Bible verse and reflection.**
+**A bilingual (English / 简体中文) world-news reader.**
 
 [![Live app](https://img.shields.io/badge/live%20app-news--insight.netlify.app-8a6d1a)](https://news-insight.netlify.app)
 [![Latest release](https://img.shields.io/github/v/release/SuyangLiuPaul/News-Insight)](https://github.com/SuyangLiuPaul/News-Insight/releases/latest)
@@ -12,17 +12,18 @@
 
 ## What it is
 
-Every story in the feed — across the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks — is automatically matched by AI to a Bible verse and a short reflection connecting the two. Tap a headline and you get the original article summary side-by-side with the verse, its reference (localized to 马太福音-style Chinese book names, not just "Matthew"), and why it applies.
+The news, and only the news: headlines, summaries and article bodies across the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks, in English and 简体中文. Tap a headline to read the story; "Read original" goes to the publisher.
+
+There is no AI commentary and no Scripture in this app (removed 2026-09-20 at the owner's request: 「所有ai评价和经文全部去掉 只看新闻就够了」). The upstream feed still attaches an AI-picked verse and a reflection to every story; the app does not read them.
 
 It's a dedicated reader, not a scraper: all content is pulled from **[yswords-data](https://yswords-data.netlify.app/data/daily_news.json)**, a shared, CORS-enabled data pipeline that already runs hourly for a sister Bible-reading app. This project is the read-only client for that feed.
 
 ## Features
 
-- **Bilingual throughout** — every headline, summary, article body, verse, and reflection ships with both an English and a 简体中文 version; toggle instantly with the EN/中文 button, no reload.
+- **Bilingual throughout** — every headline, summary and article body ships with both an English and a 简体中文 version; toggle instantly with the EN/中文 button, no reload.
 - **Eight desks — World / China / Hong Kong / Australia / Science & Nature / Tech / Creation / Documentary** — from trusted outlets (BBC, The Guardian, SBS, DW, SCMP, HKFP, RTHK, Nature, ScienceDaily, Phys.org, Ars Technica, Mongabay, Yale Environment 360, IndieWire), filterable with a single tap. Creation covers nature, wildlife, and the state of the earth; Documentary surfaces new film/TV documentary coverage. The filter chips are driven by the feed itself, so new desks appear without an app update.
 - **Responsive master-detail layout** — single column on phone-width screens, a list-plus-reading-pane layout on anything ≥880px wide.
 - **Infinite scroll into history** — once you reach the bottom of today's edition, the feed keeps paging in previous days from a rolling 90-day archive.
-- **Verse Lens card** — the app's actual differentiator: the AI-picked verse, its text in the reader's language, a one-line theme tag, and a reflection paragraph connecting the story to Scripture.
 - **Offline-first loading** — a three-tier fallback (last successful fetch → bundled snapshot → live network) means the feed renders instantly even on a slow connection, then quietly upgrades itself in the background.
 - **Dark mode**, system-driven by default.
 
@@ -58,19 +59,17 @@ flutter run -d chrome --dart-define=DAILY_NEWS_URL=https://example.com/daily_new
 
 ```
 lib/
-  models/news_article.dart       NewsArticle, NewsVerse, NewsSection, DailyNewsBundle
+  models/news_article.dart       NewsArticle, NewsSection, DailyNewsBundle
   services/
     remote_data_service.dart     Generic 3-tier cache → bundled asset → network base class
     news_service.dart            The daily-news + archive façade built on top of it
   pages/
     feed_page.dart                Master list, section filter, infinite scroll, refresh
-    article_detail_page.dart      Full story + Verse Lens card
+    article_detail_page.dart      Full story
   widgets/
-    article_card.dart             Feed row (thumbnail, title, source, verse chip)
-    verse_lens_card.dart          The verse + reflection card
+    article_card.dart             Feed row (thumbnail, title, source)
     retry_network_image.dart      Auto-retrying image loader (see docs for why)
   utils/
-    book_name_localizer.dart      English→Chinese Bible book-name table
     relative_time.dart            "3h ago" / "3小时前" formatting
   theme/                          Material 3 theme + all user-facing strings
 assets/
@@ -87,11 +86,11 @@ The README covers the essentials; the full write-up — architecture, the `yswor
 
 ## Data & attribution
 
-Headlines, summaries, and images originate from their original publishers (The Guardian, BBC News, DW, SBS News) via their public RSS feeds; this app always links back to the original article ("Read original") rather than reproducing it in full. The Bible verse pairing, translation, and reflection are AI-generated by the upstream `yswords-data` pipeline.
+Headlines, summaries, and images originate from their original publishers (The Guardian, BBC News, DW, SBS News) via their public RSS feeds; this app always links back to the original article ("Read original") rather than reproducing it in full. The Chinese translations are AI-generated by the upstream `yswords-data` pipeline.
 
 ## Related projects
 
-- **[yswords-data](https://yswords-data.netlify.app)** — the shared data pipeline this app reads from (RSS ingestion, AI verse-matching, translation, image hosting).
+- **[yswords-data](https://yswords-data.netlify.app)** — the shared data pipeline this app reads from (RSS ingestion, translation, image hosting — and an AI verse-matching step this app ignores).
 - **[YsWords](https://yswords.netlify.app)** — the sister Bible-reading app this news feed was originally built for, before being split out into its own dedicated reader.
 
 ## License
