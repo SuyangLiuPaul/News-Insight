@@ -5,10 +5,16 @@ News Insight. Read it before touching anything. It is deliberately
 short; everything it points at is longer.
 
 News Insight (新闻洞见) is a Flutter news reader — the news and nothing
-else. Since 2026-09-20 (「所有ai评价和经文全部去掉 只看新闻就够了」) the app
-shows no AI commentary and no Bible verse, although the feed it reads
-still attaches both to every story: `NewsArticle` does not parse them, so
-nothing can render them. Do not add them back without the owner asking.
+else. Since 2026-09-20 (「所有ai评价和经文全部去掉 只看新闻就够了」) it shows
+no commentary and no Bible verse, and it runs no AI of its own: the feed
+it reads still carries a verse and a reflection per story, and
+`NewsArticle` does not parse them, so nothing can render them. Do not add
+them back without the owner asking.
+
+The pipeline that produced that feed was stopped the same day
+(`yswords-data`'s `refresh.yml`: the schedule is commented out,
+`workflow_dispatch` remains), so the feed is now a fixed last edition
+rather than a moving one.
 It ships to web, Android, iOS and macOS from one codebase, in English
 and 简体中文.
 

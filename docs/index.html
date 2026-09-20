@@ -227,7 +227,7 @@
 
 <section id="overview">
   <h2><span class="num">01</span> Overview</h2>
-  <p>News Insight is a dedicated reader for a bilingual news feed — from the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks. <strong>Since 2026-09-20 it shows the news only:</strong> the feed still attaches an AI-matched Bible verse and a reflection to each story, and the app reads neither. It doesn't run its own scraping or AI pipeline: all of that lives upstream in <a href="https://yswords-data.netlify.app">yswords-data</a>, a shared data source originally built for a sister Bible-reading app and kept CORS-enabled specifically so other clients like this one could read it.</p>
+  <p>News Insight is a dedicated reader for a bilingual news feed — from the World, China, Hong Kong, Australia, Science & Nature, Tech, Creation, and Documentary desks. <strong>Since 2026-09-20 it shows the news only</strong> — no commentary, no Scripture, and no AI of its own; the feed still carries a verse and a reflection per story and the app reads neither. It doesn't run its own scraping or AI pipeline: all of that lives upstream in <a href="https://yswords-data.netlify.app">yswords-data</a>, a shared data source originally built for a sister Bible-reading app and kept CORS-enabled specifically so other clients like this one could read it.</p>
   <p class="muted">This project is the client only — a Flutter app (web, Android, iOS, macOS from one codebase) that fetches, caches, and renders that feed.</p>
 
   <div class="grid">
@@ -264,7 +264,7 @@
 
   <rect x="220" y="10" width="200" height="90" class="boxfill"/>
   <text x="320" y="34" text-anchor="middle" class="lbl">yswords-data pipeline</text>
-  <text x="320" y="52" text-anchor="middle" class="lbl-sm">AI verse-match + translate</text>
+  <text x="320" y="52" text-anchor="middle" class="lbl-sm">fetch + translate</text>
   <text x="320" y="68" text-anchor="middle" class="lbl-sm">image resolve + CORS mirror</text>
   <text x="320" y="84" text-anchor="middle" class="lbl-sm">hourly cron</text>
 
@@ -305,7 +305,7 @@
   </div>
 
   <h3>Why a separate data pipeline?</h3>
-  <p>The verse-pairing feature originally lived inside the main YsWords Bible-reading app, but was removed there since it had no clear owner inside a Bible-reading app's scope. The pipeline itself kept running — it's genuinely useful on its own — so this app was built to give it a dedicated home rather than reinventing the AI-matching and translation logic.</p>
+  <p>The verse-pairing feature originally lived inside the main YsWords Bible-reading app, but was removed there since it had no clear owner inside a Bible-reading app's scope. The pipeline kept running for a while afterwards — its scheduled refresh was stopped on 2026-09-20 — so this app was built to give it a dedicated home rather than reinventing the AI-matching and translation logic.</p>
 </section>
 
 <section id="schema">
